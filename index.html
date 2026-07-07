@@ -408,43 +408,38 @@
 
 <script>
 // Reusable inline SVG diagrams — schematic ONLY, no labels that reveal the answer.
-const svgCubePlaneA = `<svg width="130" height="120" viewBox="0 0 130 120" xmlns="http://www.w3.org/2000/svg">
-  <polygon points="20,90 20,30 45,15 45,75" fill="#c17f4e" fill-opacity="0.35" stroke="#c17f4e" stroke-width="1.5"/>
-  <polygon points="20,90 45,75 100,75 75,90" fill="none" stroke="#5b96a8" stroke-width="1.2"/>
-  <polygon points="20,30 45,15 100,15 75,30" fill="none" stroke="#5b96a8" stroke-width="1.2"/>
+// Cube coordinate system: O=(20,90) origin, X1=(75,90) [a=1], Y1=(45,75) [b=1], Z1=(20,30) [c=1]
+const cubeWireframe = `
+  <line x1="20" y1="90" x2="75" y2="90" stroke="#5b96a8" stroke-width="1.2"/>
+  <line x1="20" y1="90" x2="45" y2="75" stroke="#5b96a8" stroke-width="1.2"/>
   <line x1="20" y1="90" x2="20" y2="30" stroke="#5b96a8" stroke-width="1.2"/>
+  <line x1="75" y1="90" x2="100" y2="75" stroke="#5b96a8" stroke-width="1.2"/>
   <line x1="75" y1="90" x2="75" y2="30" stroke="#5b96a8" stroke-width="1.2"/>
+  <line x1="45" y1="75" x2="100" y2="75" stroke="#5b96a8" stroke-width="1.2"/>
   <line x1="45" y1="75" x2="45" y2="15" stroke="#5b96a8" stroke-width="1.2"/>
+  <line x1="20" y1="30" x2="75" y2="30" stroke="#5b96a8" stroke-width="1.2"/>
+  <line x1="20" y1="30" x2="45" y2="15" stroke="#5b96a8" stroke-width="1.2"/>
   <line x1="100" y1="75" x2="100" y2="15" stroke="#5b96a8" stroke-width="1.2"/>
-  <text x="8" y="103" font-size="10" fill="#9aa0a6" font-family="monospace">x</text>
-  <text x="105" y="88" font-size="10" fill="#9aa0a6" font-family="monospace">y</text>
-  <text x="45" y="10" font-size="10" fill="#9aa0a6" font-family="monospace">z</text>
+  <line x1="75" y1="30" x2="100" y2="15" stroke="#5b96a8" stroke-width="1.2"/>
+  <line x1="45" y1="15" x2="100" y2="15" stroke="#5b96a8" stroke-width="1.2"/>
+  <text x="78" y="97" font-size="10" fill="#9aa0a6" font-family="monospace">x</text>
+  <text x="46" y="82" font-size="10" fill="#9aa0a6" font-family="monospace">y</text>
+  <text x="12" y="30" font-size="10" fill="#9aa0a6" font-family="monospace">z</text>
+`;
+
+const svgCubePlaneA = `<svg width="130" height="120" viewBox="0 0 130 120" xmlns="http://www.w3.org/2000/svg">
+  <polygon points="75,90 100,75 100,15 75,30" fill="#c17f4e" fill-opacity="0.4" stroke="#c17f4e" stroke-width="1.5"/>
+  ${cubeWireframe}
 </svg>`;
 
 const svgCubePlaneB = `<svg width="130" height="120" viewBox="0 0 130 120" xmlns="http://www.w3.org/2000/svg">
-  <polygon points="20,90 75,90 100,15 45,15" fill="#c17f4e" fill-opacity="0.35" stroke="#c17f4e" stroke-width="1.5"/>
-  <polygon points="20,90 45,75 100,75 75,90" fill="none" stroke="#5b96a8" stroke-width="1.2"/>
-  <polygon points="20,30 45,15 100,15 75,30" fill="none" stroke="#5b96a8" stroke-width="1.2"/>
-  <line x1="20" y1="90" x2="20" y2="30" stroke="#5b96a8" stroke-width="1.2"/>
-  <line x1="75" y1="90" x2="75" y2="30" stroke="#5b96a8" stroke-width="1.2"/>
-  <line x1="45" y1="75" x2="45" y2="15" stroke="#5b96a8" stroke-width="1.2"/>
-  <line x1="100" y1="75" x2="100" y2="15" stroke="#5b96a8" stroke-width="1.2"/>
-  <text x="8" y="103" font-size="10" fill="#9aa0a6" font-family="monospace">x</text>
-  <text x="105" y="88" font-size="10" fill="#9aa0a6" font-family="monospace">y</text>
-  <text x="45" y="10" font-size="10" fill="#9aa0a6" font-family="monospace">z</text>
+  <polygon points="75,90 45,75 45,15 75,30" fill="#c17f4e" fill-opacity="0.4" stroke="#c17f4e" stroke-width="1.5"/>
+  ${cubeWireframe}
 </svg>`;
 
 const svgCubePlaneC = `<svg width="130" height="120" viewBox="0 0 130 120" xmlns="http://www.w3.org/2000/svg">
-  <polygon points="20,90 100,75 45,15" fill="#c17f4e" fill-opacity="0.35" stroke="#c17f4e" stroke-width="1.5"/>
-  <polygon points="20,90 45,75 100,75 75,90" fill="none" stroke="#5b96a8" stroke-width="1.2"/>
-  <polygon points="20,30 45,15 100,15 75,30" fill="none" stroke="#5b96a8" stroke-width="1.2"/>
-  <line x1="20" y1="90" x2="20" y2="30" stroke="#5b96a8" stroke-width="1.2"/>
-  <line x1="75" y1="90" x2="75" y2="30" stroke="#5b96a8" stroke-width="1.2"/>
-  <line x1="45" y1="75" x2="45" y2="15" stroke="#5b96a8" stroke-width="1.2"/>
-  <line x1="100" y1="75" x2="100" y2="15" stroke="#5b96a8" stroke-width="1.2"/>
-  <text x="8" y="103" font-size="10" fill="#9aa0a6" font-family="monospace">x</text>
-  <text x="105" y="88" font-size="10" fill="#9aa0a6" font-family="monospace">y</text>
-  <text x="45" y="10" font-size="10" fill="#9aa0a6" font-family="monospace">z</text>
+  <polygon points="75,90 45,75 20,30" fill="#c17f4e" fill-opacity="0.4" stroke="#c17f4e" stroke-width="1.5"/>
+  ${cubeWireframe}
 </svg>`;
 
 const svgStructureA = `<svg width="120" height="110" viewBox="0 0 120 110" xmlns="http://www.w3.org/2000/svg">
