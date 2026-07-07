@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Crystal Structures Quiz — Planes, APF, Coordination & Density</title>
+<title>MM101 — Crystal Structures Quiz</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600;700;800&display=swap');
 
@@ -38,9 +38,20 @@
     justify-content:center;
   }
 
-  .wrap{ width:100%; max-width: 720px; }
+  .wrap{ width:100%; max-width: 760px; }
 
-  header{ margin-bottom: 28px; }
+  header{ margin-bottom: 24px; }
+
+  .course-bar{
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px;
+    font-family: var(--mono);
+    font-size: 11.5px;
+    color: var(--text-dim);
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 10px;
+    margin-bottom: 16px;
+  }
+  .course-bar b{ color: var(--copper); }
 
   .eyebrow{
     font-family: var(--mono);
@@ -57,7 +68,7 @@
   }
 
   h1{
-    font-size: clamp(26px, 5vw, 36px);
+    font-size: clamp(24px, 5vw, 32px);
     font-weight: 800;
     line-height: 1.15;
     letter-spacing: -0.01em;
@@ -66,16 +77,15 @@
 
   .sub{
     color: var(--text-dim);
-    font-size: 14.5px;
-    margin-top: 10px;
+    font-size: 14px;
+    margin-top: 8px;
     max-width: 560px;
     line-height:1.5;
   }
 
-  /* --- unit cell progress indicator (signature element) --- */
   .cell-wrap{
     display:flex; align-items:center; gap:16px;
-    margin-top: 22px;
+    margin-top: 20px;
     background: var(--bg-panel);
     border: 1px solid var(--line);
     border-radius: 10px;
@@ -100,10 +110,9 @@
     width: 0%;
     transition: width 0.4s ease;
   }
-  .atom{ transition: fill 0.3s ease, opacity 0.3s ease; }
+  .atom{ transition: fill 0.3s ease; }
 
-  /* --- question card --- */
-  #quiz-area{ margin-top: 26px; }
+  #quiz-area{ margin-top: 24px; }
 
   .card{
     background: var(--bg-card);
@@ -119,13 +128,23 @@
     color: var(--copper);
     letter-spacing: 0.08em;
     margin-bottom: 10px;
+    display:flex; justify-content:space-between;
   }
 
   .qtext{
     font-size: 16.5px;
     font-weight: 600;
     line-height: 1.5;
-    margin-bottom: 18px;
+    margin-bottom: 16px;
+  }
+
+  .diagram{
+    display:flex; justify-content:center;
+    background: var(--bg-panel);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 14px;
+    margin-bottom: 16px;
   }
 
   .options{ display:flex; flex-direction:column; gap:9px; }
@@ -178,9 +197,7 @@
   .explain b{ color: var(--text); }
   .explain.show{ display:block; }
 
-  .nav-row{
-    display:flex; justify-content:flex-end; margin-top:16px;
-  }
+  .nav-row{ display:flex; justify-content:flex-end; margin-top:16px; }
   .btn{
     font-family: var(--mono);
     font-size: 13px;
@@ -199,7 +216,6 @@
   .btn:active{ transform: scale(0.97); }
   .btn.show{ display:inline-block; }
 
-  /* --- results --- */
   #results{
     display:none;
     background: var(--bg-card);
@@ -218,6 +234,12 @@
   }
   .score-label{ color: var(--text-dim); font-size: 13px; margin-top:8px; font-family: var(--mono);}
   .verdict{ margin-top:16px; font-size:15px; color: var(--text); line-height:1.6; max-width:480px; margin-left:auto; margin-right:auto;}
+  .sending-note{
+    font-family: var(--mono);
+    font-size: 11.5px;
+    color: var(--text-dim);
+    margin-top: 14px;
+  }
   .restart{
     margin-top: 22px;
     background: transparent;
@@ -228,35 +250,35 @@
     padding: 10px 20px;
     border-radius: 7px;
     cursor:pointer;
+    margin-right: 10px;
   }
   .restart:hover{ background: rgba(193,127,78,0.1); }
+  .print-btn{
+    margin-top: 22px;
+    background: transparent;
+    border: 1px solid var(--steel);
+    color: var(--steel);
+    font-family: var(--mono);
+    font-size: 13px;
+    padding: 10px 20px;
+    border-radius: 7px;
+    cursor:pointer;
+  }
+  .print-btn:hover{ background: rgba(91,150,168,0.1); }
 
   footer{
     text-align:center; color: var(--text-dim); font-size:12px;
     margin-top: 30px; font-family: var(--mono);
   }
 
-  /* --- start gate --- */
   #start-screen{
     background: var(--bg-card);
     border: 1px solid var(--line);
     border-radius: 12px;
     padding: 26px 22px;
-    margin-top: 26px;
+    margin-top: 24px;
   }
-  #start-screen .qnum{
-    font-family: var(--mono);
-    font-size: 12px;
-    color: var(--copper);
-    letter-spacing: 0.08em;
-    margin-bottom: 10px;
-  }
-  #start-screen .qtext{
-    font-size: 16.5px;
-    font-weight: 600;
-    line-height: 1.5;
-    margin-bottom: 18px;
-  }
+  #start-screen .qtext{ font-size: 16px; font-weight:600; margin-bottom: 18px; }
   .field{ margin-bottom: 14px; }
   .field label{
     display:block;
@@ -277,7 +299,6 @@
     font-size: 14.5px;
     font-family: var(--sans);
     outline: none;
-    transition: border-color 0.15s ease;
   }
   .field input:focus{ border-color: var(--copper-dim); }
   .field-error{
@@ -289,11 +310,39 @@
   }
   .field-error.show{ display:block; }
   .hidden{ display:none !important; }
-  .sending-note{
-    font-family: var(--mono);
-    font-size: 11.5px;
-    color: var(--text-dim);
-    margin-top: 14px;
+
+  /* ======= PRINT: compact, max 2 A4 pages, exam-paper style ======= */
+  @media print{
+    @page{ size: A4; margin: 10mm; }
+    body{ background: white; color: #111; padding: 0; font-size: 9.5px; }
+    .cell-wrap, .nav-row, .print-btn, .restart, #start-screen, .sending-note{ display:none !important; }
+    .wrap{ max-width: 100%; }
+    header{ margin-bottom: 6px; }
+    .course-bar{ color:#444; border-bottom: 1px solid #999; padding-bottom:4px; margin-bottom:8px; font-size:9px;}
+    .course-bar b{ color:#000; }
+    .eyebrow{ font-size: 8px; margin-bottom:2px; }
+    .eyebrow::before{ background:#a05a2c; }
+    h1{ font-size: 16px; color:#000; }
+    h1 span{ color:#345; }
+    .sub{ font-size: 8.5px; color:#333; margin-top:4px; }
+
+    #quiz-area{ column-count: 2; column-gap: 12px; margin-top: 8px; display:block !important; }
+    .card{
+      border: 1px solid #bbb; background: white; padding: 6px 8px;
+      margin-bottom: 6px; break-inside: avoid; border-radius: 4px; display:block !important;
+    }
+    .qnum{ font-size: 7.5px; margin-bottom:3px; color:#a05a2c; }
+    .qtext{ font-size: 9px; margin-bottom: 5px; line-height:1.3; }
+    .diagram{ padding: 4px; margin-bottom:5px; background:white; border:1px solid #ccc; }
+    .diagram svg{ max-width: 100px; height:auto; }
+    .options{ gap:3px; }
+    .opt{ padding: 3px 6px; font-size: 8px; border:1px solid #ccc; background:white; gap:5px; }
+    .opt .tag{ width:12px; height:12px; font-size:6.5px; }
+    .opt.correct{ background:#eafaf0; border-color:#6fae7f; }
+    .opt.wrong{ display:none; }
+    .opt.dim{ opacity:1; }
+    .explain{ display:block !important; font-size:7px; padding:4px 6px; margin-top:5px; line-height:1.25; border-left-width:2px; background:#f0f6f8; }
+    #results{ display:none !important; }
   }
 </style>
 </head>
@@ -301,11 +350,16 @@
 <div class="wrap">
 
   <header>
-    <div class="eyebrow">FMCE · Materials Science</div>
-    <h1>Crystal Structures & <span>Packing</span> Quiz</h1>
-    <div class="sub">15 questions on planes, atomic packing factor, coordination number in SC / BCC / FCC, and linear &amp; planar density.</div>
+    <div class="course-bar">
+      <span>Course: <b>MM 101 — Introduction to Materials Engineering</b></span>
+      <span>Instructor: <b>Engr. Abdullah Khan</b></span>
+      <span>Dept. of Materials Engineering, GIKI, Topi, Swabi</span>
+    </div>
+    <div class="eyebrow">Quiz 2 · Crystal Structures</div>
+    <h1>Planes, Packing & <span>Density</span> Quiz</h1>
+    <div class="sub">Crystallographic planes and Miller indices, metallic crystal structures (SC/BCC/FCC/HCP), coordination number, atomic packing factor, theoretical density, linear &amp; planar density, stacking sequences, and ceramic bonding.</div>
 
-    <div class="cell-wrap hidden">
+    <div class="cell-wrap">
       <svg id="cell-svg" width="64" height="64" viewBox="0 0 64 64">
         <rect x="6" y="6" width="52" height="52" fill="none" stroke="#4a5157" stroke-width="1.5" rx="4"/>
         <circle class="atom" data-i="0" cx="6" cy="6" r="5" fill="#33393f"/>
@@ -315,7 +369,7 @@
         <circle class="atom" data-i="4" cx="32" cy="32" r="6" fill="#33393f"/>
       </svg>
       <div class="cell-meta">
-        <div class="cell-label"><span>Lattice filled</span> <b id="progress-text">0 / 15</b></div>
+        <div class="cell-label"><span>Lattice filled</span> <b id="progress-text">0 / 0</b></div>
         <div class="track"><div id="progress-fill"></div></div>
       </div>
     </div>
@@ -323,7 +377,7 @@
 
   <div id="start-screen">
     <div class="qnum">BEFORE YOU BEGIN</div>
-    <div class="qtext">Enter your details so your score can be recorded.</div>
+    <div class="qtext">Enter your details to begin the quiz.</div>
     <div class="field">
       <label for="student-name">Full Name</label>
       <input type="text" id="student-name" placeholder="e.g. Ali Hassan">
@@ -333,124 +387,153 @@
       <input type="text" id="student-reg" placeholder="e.g. 2023-GIKI-1234">
     </div>
     <div class="field-error" id="start-error">Please fill in both fields to continue.</div>
-    <div class="nav-row"><button class="btn show" id="start-btn">BEGIN QUIZ →</button></div>
+    <div class="nav-row" style="display:flex;"><button class="btn show" id="start-btn">BEGIN QUIZ →</button></div>
   </div>
 
   <div id="quiz-area" class="hidden"></div>
 
   <div id="results">
-    <div class="score-big" id="final-score">0/15</div>
+    <div class="score-big" id="final-score">0/0</div>
     <div class="score-label">FINAL SCORE</div>
     <div class="verdict" id="verdict-text"></div>
     <div class="sending-note" id="sending-note">Recording your result…</div>
-    <button class="restart" onclick="restartQuiz()">↺ RESTART QUIZ</button>
+    <div>
+      <button class="restart" onclick="restartQuiz()">↺ RESTART QUIZ</button>
+      <button class="print-btn" onclick="preparePrint()">⬇ PRINT / SAVE AS PDF</button>
+    </div>
   </div>
 
-  <footer>Surface Engineering &amp; Manufacturing Processes — self-check set</footer>
+  <footer>MM 101 · Department of Materials Engineering, GIKI Topi Swabi</footer>
 </div>
 
 <script>
+// Reusable inline SVG diagrams — schematic ONLY, no labels that reveal the answer.
+const svgCubePlaneA = `<svg width="130" height="120" viewBox="0 0 130 120" xmlns="http://www.w3.org/2000/svg">
+  <polygon points="20,90 20,30 45,15 45,75" fill="#c17f4e" fill-opacity="0.35" stroke="#c17f4e" stroke-width="1.5"/>
+  <polygon points="20,90 45,75 100,75 75,90" fill="none" stroke="#5b96a8" stroke-width="1.2"/>
+  <polygon points="20,30 45,15 100,15 75,30" fill="none" stroke="#5b96a8" stroke-width="1.2"/>
+  <line x1="20" y1="90" x2="20" y2="30" stroke="#5b96a8" stroke-width="1.2"/>
+  <line x1="75" y1="90" x2="75" y2="30" stroke="#5b96a8" stroke-width="1.2"/>
+  <line x1="45" y1="75" x2="45" y2="15" stroke="#5b96a8" stroke-width="1.2"/>
+  <line x1="100" y1="75" x2="100" y2="15" stroke="#5b96a8" stroke-width="1.2"/>
+  <text x="8" y="103" font-size="10" fill="#9aa0a6" font-family="monospace">x</text>
+  <text x="105" y="88" font-size="10" fill="#9aa0a6" font-family="monospace">y</text>
+  <text x="45" y="10" font-size="10" fill="#9aa0a6" font-family="monospace">z</text>
+</svg>`;
+
+const svgCubePlaneB = `<svg width="130" height="120" viewBox="0 0 130 120" xmlns="http://www.w3.org/2000/svg">
+  <polygon points="20,90 75,90 100,15 45,15" fill="#c17f4e" fill-opacity="0.35" stroke="#c17f4e" stroke-width="1.5"/>
+  <polygon points="20,90 45,75 100,75 75,90" fill="none" stroke="#5b96a8" stroke-width="1.2"/>
+  <polygon points="20,30 45,15 100,15 75,30" fill="none" stroke="#5b96a8" stroke-width="1.2"/>
+  <line x1="20" y1="90" x2="20" y2="30" stroke="#5b96a8" stroke-width="1.2"/>
+  <line x1="75" y1="90" x2="75" y2="30" stroke="#5b96a8" stroke-width="1.2"/>
+  <line x1="45" y1="75" x2="45" y2="15" stroke="#5b96a8" stroke-width="1.2"/>
+  <line x1="100" y1="75" x2="100" y2="15" stroke="#5b96a8" stroke-width="1.2"/>
+  <text x="8" y="103" font-size="10" fill="#9aa0a6" font-family="monospace">x</text>
+  <text x="105" y="88" font-size="10" fill="#9aa0a6" font-family="monospace">y</text>
+  <text x="45" y="10" font-size="10" fill="#9aa0a6" font-family="monospace">z</text>
+</svg>`;
+
+const svgCubePlaneC = `<svg width="130" height="120" viewBox="0 0 130 120" xmlns="http://www.w3.org/2000/svg">
+  <polygon points="20,90 100,75 45,15" fill="#c17f4e" fill-opacity="0.35" stroke="#c17f4e" stroke-width="1.5"/>
+  <polygon points="20,90 45,75 100,75 75,90" fill="none" stroke="#5b96a8" stroke-width="1.2"/>
+  <polygon points="20,30 45,15 100,15 75,30" fill="none" stroke="#5b96a8" stroke-width="1.2"/>
+  <line x1="20" y1="90" x2="20" y2="30" stroke="#5b96a8" stroke-width="1.2"/>
+  <line x1="75" y1="90" x2="75" y2="30" stroke="#5b96a8" stroke-width="1.2"/>
+  <line x1="45" y1="75" x2="45" y2="15" stroke="#5b96a8" stroke-width="1.2"/>
+  <line x1="100" y1="75" x2="100" y2="15" stroke="#5b96a8" stroke-width="1.2"/>
+  <text x="8" y="103" font-size="10" fill="#9aa0a6" font-family="monospace">x</text>
+  <text x="105" y="88" font-size="10" fill="#9aa0a6" font-family="monospace">y</text>
+  <text x="45" y="10" font-size="10" fill="#9aa0a6" font-family="monospace">z</text>
+</svg>`;
+
+const svgStructureA = `<svg width="120" height="110" viewBox="0 0 120 110" xmlns="http://www.w3.org/2000/svg">
+  <polygon points="15,85 15,25 40,10 40,70" fill="none" stroke="#5b96a8" stroke-width="1.2"/>
+  <polygon points="15,85 40,70 95,70 70,85" fill="none" stroke="#5b96a8" stroke-width="1.2"/>
+  <polygon points="15,25 40,10 95,10 70,25" fill="none" stroke="#5b96a8" stroke-width="1.2"/>
+  <line x1="70" y1="85" x2="70" y2="25" stroke="#5b96a8" stroke-width="1.2"/>
+  <line x1="95" y1="70" x2="95" y2="10" stroke="#5b96a8" stroke-width="1.2"/>
+  <circle cx="15" cy="85" r="6" fill="#c17f4e"/><circle cx="15" cy="25" r="6" fill="#c17f4e"/>
+  <circle cx="40" cy="70" r="6" fill="#c17f4e"/><circle cx="40" cy="10" r="6" fill="#c17f4e"/>
+  <circle cx="70" cy="85" r="6" fill="#c17f4e"/><circle cx="70" cy="25" r="6" fill="#c17f4e"/>
+  <circle cx="95" cy="70" r="6" fill="#c17f4e"/><circle cx="95" cy="10" r="6" fill="#c17f4e"/>
+</svg>`;
+
+const svgStructureB = `<svg width="120" height="110" viewBox="0 0 120 110" xmlns="http://www.w3.org/2000/svg">
+  <polygon points="15,85 15,25 40,10 40,70" fill="none" stroke="#5b96a8" stroke-width="1.2"/>
+  <polygon points="15,85 40,70 95,70 70,85" fill="none" stroke="#5b96a8" stroke-width="1.2"/>
+  <polygon points="15,25 40,10 95,10 70,25" fill="none" stroke="#5b96a8" stroke-width="1.2"/>
+  <line x1="70" y1="85" x2="70" y2="25" stroke="#5b96a8" stroke-width="1.2"/>
+  <line x1="95" y1="70" x2="95" y2="10" stroke="#5b96a8" stroke-width="1.2"/>
+  <circle cx="15" cy="85" r="6" fill="#c17f4e"/><circle cx="15" cy="25" r="6" fill="#c17f4e"/>
+  <circle cx="40" cy="70" r="6" fill="#c17f4e"/><circle cx="40" cy="10" r="6" fill="#c17f4e"/>
+  <circle cx="70" cy="85" r="6" fill="#c17f4e"/><circle cx="70" cy="25" r="6" fill="#c17f4e"/>
+  <circle cx="95" cy="70" r="6" fill="#c17f4e"/><circle cx="95" cy="10" r="6" fill="#c17f4e"/>
+  <circle cx="55" cy="47" r="7" fill="#6fae7f"/>
+</svg>`;
+
+const svgStructureC = `<svg width="120" height="110" viewBox="0 0 120 110" xmlns="http://www.w3.org/2000/svg">
+  <polygon points="15,85 15,25 40,10 40,70" fill="none" stroke="#5b96a8" stroke-width="1.2"/>
+  <polygon points="15,85 40,70 95,70 70,85" fill="none" stroke="#5b96a8" stroke-width="1.2"/>
+  <polygon points="15,25 40,10 95,10 70,25" fill="none" stroke="#5b96a8" stroke-width="1.2"/>
+  <line x1="70" y1="85" x2="70" y2="25" stroke="#5b96a8" stroke-width="1.2"/>
+  <line x1="95" y1="70" x2="95" y2="10" stroke="#5b96a8" stroke-width="1.2"/>
+  <circle cx="15" cy="85" r="6" fill="#c17f4e"/><circle cx="15" cy="25" r="6" fill="#c17f4e"/>
+  <circle cx="40" cy="70" r="6" fill="#c17f4e"/><circle cx="40" cy="10" r="6" fill="#c17f4e"/>
+  <circle cx="70" cy="85" r="6" fill="#c17f4e"/><circle cx="70" cy="25" r="6" fill="#c17f4e"/>
+  <circle cx="95" cy="70" r="6" fill="#c17f4e"/><circle cx="95" cy="10" r="6" fill="#c17f4e"/>
+  <circle cx="42.5" cy="47" r="5.5" fill="#6fae7f"/><circle cx="82.5" cy="47" r="5.5" fill="#6fae7f"/>
+  <circle cx="27.5" cy="77" r="5.5" fill="#6fae7f"/><circle cx="27.5" cy="17" r="5.5" fill="#6fae7f"/>
+  <circle cx="55" cy="17" r="5.5" fill="#6fae7f" opacity="0.6"/><circle cx="55" cy="77" r="5.5" fill="#6fae7f" opacity="0.6"/>
+</svg>`;
+
+const svgDiagonalGeneric = `<svg width="130" height="120" viewBox="0 0 130 120" xmlns="http://www.w3.org/2000/svg">
+  <rect x="25" y="15" width="70" height="70" fill="none" stroke="#5b96a8" stroke-width="1.5"/>
+  <circle cx="60" cy="50" r="34" fill="#c17f4e" fill-opacity="0.3" stroke="#c17f4e" stroke-width="1.5"/>
+  <line x1="25" y1="15" x2="95" y2="85" stroke="#e8e6e1" stroke-width="1" stroke-dasharray="3,2"/>
+</svg>`;
+
+const svgLDGeneric = `<svg width="130" height="110" viewBox="0 0 130 110" xmlns="http://www.w3.org/2000/svg">
+  <rect x="20" y="15" width="70" height="70" fill="none" stroke="#5b96a8" stroke-width="1.2"/>
+  <circle cx="20" cy="15" r="9" fill="#33393f" stroke="#c17f4e"/>
+  <circle cx="90" cy="85" r="9" fill="#33393f" stroke="#c17f4e"/>
+  <circle cx="20" cy="85" r="9" fill="#33393f" stroke="#c17f4e"/>
+  <circle cx="90" cy="15" r="9" fill="#33393f" stroke="#c17f4e"/>
+  <circle cx="55" cy="50" r="10" fill="#6fae7f"/>
+  <line x1="20" y1="15" x2="90" y2="85" stroke="#c17f4e" stroke-width="2"/>
+</svg>`;
+
 const questions = [
-  {
-    q: "What is the coordination number of a Simple Cubic (SC) structure?",
-    options: ["4", "6", "8", "12"],
-    correct: 1,
-    explain: "In SC, each atom touches 6 nearest neighbors — one along each of the ±x, ±y, ±z directions."
-  },
-  {
-    q: "What is the coordination number of Body-Centered Cubic (BCC)?",
-    options: ["6", "8", "10", "12"],
-    correct: 1,
-    explain: "The corner atoms surround the body-center atom, giving BCC a coordination number of 8."
-  },
-  {
-    q: "What is the coordination number of Face-Centered Cubic (FCC)?",
-    options: ["6", "8", "10", "12"],
-    correct: 3,
-    explain: "FCC is close-packed: each atom touches 12 nearest neighbors (4 in its own plane, 4 above, 4 below)."
-  },
-  {
-    q: "What is the Atomic Packing Factor (APF) of Simple Cubic?",
-    options: ["0.52", "0.68", "0.74", "0.61"],
-    correct: 0,
-    explain: "SC has 1 atom per unit cell in a cube of volume a³, giving APF = π/6 ≈ 0.52 — the loosest of the three."
-  },
-  {
-    q: "What is the APF of BCC?",
-    options: ["0.52", "0.68", "0.74", "0.80"],
-    correct: 1,
-    explain: "BCC has 2 atoms per unit cell with a = 4R/√3, giving APF = (√3·π)/8 ≈ 0.68."
-  },
-  {
-    q: "What is the APF of FCC?",
-    options: ["0.68", "0.74", "0.90", "0.52"],
-    correct: 1,
-    explain: "FCC has 4 atoms per unit cell with a = 2√2·R, giving APF = π/(3√2) ≈ 0.74 — the maximum for spheres of equal size."
-  },
-  {
-    q: "Which structure(s) achieve the theoretical maximum packing factor of ~0.74 for equal spheres?",
-    options: ["SC only", "BCC only", "FCC and HCP", "BCC and SC"],
-    correct: 2,
-    explain: "Both FCC and HCP are close-packed structures and share the same maximum APF of 0.74."
-  },
-  {
-    q: "How many atoms are there per unit cell in FCC?",
-    options: ["1", "2", "4", "6"],
-    correct: 2,
-    explain: "FCC: 8 corners × 1/8 + 6 faces × 1/2 = 1 + 3 = 4 atoms per unit cell."
-  },
-  {
-    q: "How many atoms are there per unit cell in BCC?",
-    options: ["1", "2", "4", "8"],
-    correct: 1,
-    explain: "BCC: 8 corners × 1/8 + 1 body-center × 1 = 1 + 1 = 2 atoms per unit cell."
-  },
-  {
-    q: "Linear density (LD) is defined as:",
-    options: [
-      "Number of atoms per unit area of a plane",
-      "Number of atoms centered on a direction vector divided by the length of that vector",
-      "Mass of atoms per unit volume",
-      "Number of unit cells per unit length"
-    ],
-    correct: 1,
-    explain: "Linear density = (number of atom centers on a direction) / (length of the direction vector), usually expressed per nm or per R."
-  },
-  {
-    q: "Planar density (PD) is defined as:",
-    options: [
-      "Number of atoms centered on a plane divided by the area of that plane",
-      "Number of planes per unit volume",
-      "Number of atoms per unit cell",
-      "Ratio of atomic radius to lattice parameter"
-    ],
-    correct: 0,
-    explain: "Planar density = (number of atom centers lying on a plane) / (area of that plane)."
-  },
-  {
-    q: "In FCC, which direction has the highest linear density (the close-packed direction)?",
-    options: ["[100]", "[110]", "[111]", "[211]"],
-    correct: 1,
-    explain: "In FCC, atoms touch along the face diagonal, so <110> is the close-packed direction with the highest linear density."
-  },
-  {
-    q: "In BCC, which direction is the close-packed (highest linear density) direction?",
-    options: ["[100]", "[110]", "[111]", "[210]"],
-    correct: 2,
-    explain: "In BCC, atoms touch along the body diagonal, making <111> the close-packed direction."
-  },
-  {
-    q: "Which plane has the highest planar density in FCC?",
-    options: ["(100)", "(110)", "(111)", "(211)"],
-    correct: 2,
-    explain: "The (111) plane in FCC is the close-packed plane — atoms are arranged in the tightest possible 2D hexagonal pattern."
-  },
-  {
-    q: "A crystallographic plane is identified using:",
-    options: ["Bravais lattice symbols", "Miller indices (hkl)", "Coordination shells", "Burgers vectors"],
-    correct: 1,
-    explain: "Planes in a crystal are labeled with Miller indices (hkl), derived from the reciprocals of the plane's axial intercepts."
-  }
+  { q: "In the process of determining Miller indices, what is the second step after finding intercepts?", options: ["Write them as (hkl)", "Take reciprocal of the intercepts", "Shift the origin", "Draw parallel planes"], correct: 1, explain: "The standard procedure is: find intercepts → take reciprocals → clear fractions to smallest whole numbers → enclose as (hkl)." },
+  { q: "A plane cuts only the a-axis at 1, and is parallel to the b and c axes, as shown below. What is its Miller index?", diagram: svgCubePlaneA, options: ["(100)", "(110)", "(111)", "(001)"], correct: 0, explain: "Intercepts (1,∞,∞) → reciprocals (1,0,0) → Miller index (100)." },
+  { q: "A plane cuts the a-axis at 1 and the b-axis at 1, running parallel to the c-axis, as shown below. What is its Miller index?", diagram: svgCubePlaneB, options: ["(100)", "(110)", "(111)", "(211)"], correct: 1, explain: "Intercepts (1,1,∞) give reciprocals (1,1,0) → the (110) plane, cutting diagonally across two faces." },
+  { q: "A plane cuts all three axes at unit distance (1a, 1b, 1c), as shown below. What is its Miller index?", diagram: svgCubePlaneC, options: ["(100)", "(110)", "(111)", "(200)"], correct: 2, explain: "Equal unit intercepts on all three axes give reciprocals (1,1,1) → the (111) plane, the close-packed plane in FCC." },
+  { q: "If a plane passes through the origin, what must be done before finding Miller indices?", options: ["Ignore the plane", "Shift the plane or the origin", "Assume intercepts are infinite", "Double all intercepts"], correct: 1, explain: "Miller indices cannot be defined for a plane passing through the origin, so the origin (or the plane) must first be shifted." },
+  { q: "A plane has intercepts 1/3a, 2/3b, 1c. What are its Miller indices?", options: ["(321)", "(632)", "(123)", "(263)"], correct: 1, explain: "Reciprocals of 1/3, 2/3, 1 are 3, 3/2, 1. Clearing fractions (×2) gives 6, 3, 2 → (632)." },
+  { q: "What do negative Miller indices (a bar over a number, as in (0 1̄ 2)) represent?", options: ["An imaginary plane", "An intercept on the negative side of that axis", "A plane parallel to the axis", "An error in indexing"], correct: 1, explain: "A bar over an index indicates the plane intercepts that axis on its negative side, as with B = −b in the (0 1̄ 2) example." },
+  { q: "In cubic crystals, what is meant by the notation {100}?", options: ["Only the (100) plane", "A single unique direction", "The family of all equivalent (100)-type planes", "A plane with irrational intercepts"], correct: 2, explain: "Curly braces {hkl} denote the family of crystallographically equivalent planes — for {100}, this includes (100), (010), (001), and their negative counterparts." },
+  { q: "In the unit cell schematic below, atoms sit only at the corners and touch along the cube edge. Which structure is this?", diagram: svgStructureA, options: ["Simple Cubic", "Body-Centered Cubic", "Face-Centered Cubic", "Hexagonal Close-Packed"], correct: 0, explain: "Atoms only at the 8 corners, touching along the cube edge, is Simple Cubic — the loosest packing of the cubic structures." },
+  { q: "In the unit cell schematic below, atoms sit at the corners plus one additional atom fully inside the cell. Which structure is this?", diagram: svgStructureB, options: ["Simple Cubic", "Body-Centered Cubic", "Face-Centered Cubic", "Simple Tetragonal"], correct: 1, explain: "8 corner atoms plus 1 atom at the body center, touching along the body diagonal, describes BCC." },
+  { q: "In the unit cell schematic below, atoms sit at the corners plus atoms centered on each face. Which structure is this?", diagram: svgStructureC, options: ["Simple Cubic", "Body-Centered Cubic", "Face-Centered Cubic", "Simple Tetragonal"], correct: 2, explain: "Atoms at 8 corners and 6 face centers, touching along the face diagonal, is the FCC structure." },
+  { q: "What is the coordination number of Simple Cubic (SC)?", options: ["4", "6", "8", "12"], correct: 1, explain: "In SC, each atom touches 6 nearest neighbors — one along each of the ±x, ±y, ±z directions." },
+  { q: "What is the coordination number of Body-Centered Cubic (BCC)?", options: ["6", "8", "10", "12"], correct: 1, explain: "The 8 corner atoms surround the body-center atom, giving BCC a coordination number of 8." },
+  { q: "What is the coordination number of Face-Centered Cubic (FCC)?", options: ["6", "8", "10", "12"], correct: 3, explain: "FCC is close-packed: each atom touches 12 nearest neighbors (4 in its own plane, 4 above, 4 below)." },
+  { q: "How many atoms are there per unit cell in Simple Cubic (Polonium-type)?", options: ["1", "2", "4", "8"], correct: 0, explain: "8 corner atoms × 1/8 each = 1 atom per unit cell, as seen in the Polonium structure." },
+  { q: "How many atoms are there per unit cell in BCC (e.g. Iron)?", options: ["1", "2", "4", "8"], correct: 1, explain: "8 corners × 1/8 + 1 body-center × 1 = 1 + 1 = 2 atoms per unit cell." },
+  { q: "How many atoms are there per unit cell in FCC (e.g. Copper)?", options: ["1", "2", "4", "6"], correct: 2, explain: "8 corners × 1/8 + 6 faces × 1/2 = 1 + 3 = 4 atoms per unit cell." },
+  { q: "Using N = Ni + Nf/2 + Nc/8 + Ne/4, what does Ne represent?", options: ["Number of interior atoms", "Number of face atoms", "Number of edge atoms", "Number of corner atoms"], correct: 2, explain: "Ne is the number of edge atoms, each shared among 4 unit cells, hence divided by 4 in the general atom-counting formula." },
+  { q: "Approximately what percentage of a Simple Cubic unit cell is empty space?", options: ["26%", "32%", "48%", "60%"], correct: 2, explain: "SC has an APF of ~0.52, meaning roughly 48% of the unit cell volume is empty — the least efficient packing of the three cubic structures." },
+  { q: "Approximately what percentage of a BCC unit cell is empty space?", options: ["26%", "32%", "48%", "52%"], correct: 1, explain: "BCC has an APF of ~0.68, leaving about 32% empty space — atoms touch along the body diagonal." },
+  { q: "Approximately what percentage of an FCC unit cell is empty space?", options: ["26%", "32%", "48%", "16%"], correct: 0, explain: "FCC (and HCP) reach the maximum packing efficiency for equal spheres, APF ≈ 0.74, leaving only about 26% empty space." },
+  { q: "In the cubic unit cell schematic below, a sphere is inscribed touching along one of the cell's diagonals. Which relation does this represent for BCC?", diagram: svgDiagonalGeneric, options: ["a = 2R", "a = 4R/√3 (body diagonal contact)", "a = 2√2·R (face diagonal contact)", "Atoms do not touch"], correct: 1, explain: "In BCC, the corner and body-center atoms touch along the body diagonal, giving the relation a = 4R/√3." },
+  { q: "What is the Atomic Packing Factor (APF) formula?", options: ["Mass of atoms ÷ total unit cell mass", "Volume of atoms in a unit cell ÷ total unit cell volume", "Number of atoms ÷ unit cell volume", "Atomic radius ÷ lattice parameter"], correct: 1, explain: "APF = (volume of atoms in a unit cell) / (total unit cell volume) — a measure of how efficiently space is filled by spheres." },
+  { q: "In the theoretical density formula ρ = nA / (Vc·NA), what does 'n' represent?", options: ["Avogadro's number", "Number of atoms associated with each unit cell", "Atomic weight", "Volume of the unit cell"], correct: 1, explain: "n is the number of atoms per unit cell (e.g. 4 for FCC, 2 for BCC), A is atomic weight, Vc is unit cell volume, and NA is Avogadro's number." },
+  { q: "Linear density (LD) is defined as:", options: ["Number of atoms per unit area of a plane", "Number of atoms centered on a direction vector divided by the length of that vector", "Mass of atoms per unit volume", "Number of unit cells per unit length"], correct: 1, explain: "LD = (number of atom centers on a direction) / (length of the direction vector), with units of reciprocal length (e.g. nm⁻¹)." },
+  { q: "In the diagonal direction schematic below through an FCC face, why is the linear density high along this line?", diagram: svgLDGeneric, options: ["Atoms touch along the face diagonal here", "This direction passes through no atoms", "It is parallel to the unit cell edge only", "It only includes corner atoms"], correct: 0, explain: "In FCC, atoms touch along the face diagonal, making <110> the close-packed direction with the highest linear density." },
+  { q: "In BCC, which direction is the close-packed (highest linear density) direction?", options: ["[100]", "[110]", "[111]", "[210]"], correct: 2, explain: "In BCC, atoms touch along the body diagonal, making <111> the close-packed direction." },
+  { q: "Planar density (PD) is defined as:", options: ["Number of atoms centered on a plane divided by the area of that plane", "Number of planes per unit volume", "Number of atoms per unit cell", "Ratio of atomic radius to lattice parameter"], correct: 0, explain: "PD = (number of atom centers lying on a plane) / (area of that plane), with units of reciprocal area (e.g. nm⁻²)." },
+  { q: "Which plane has the highest planar density in FCC?", options: ["(100)", "(110)", "(111)", "(211)"], correct: 2, explain: "The (111) plane in FCC is the close-packed plane, with atoms arranged in the tightest possible 2D hexagonal pattern." },
+  { q: "Why are crystallographic planes and directions important in materials engineering (e.g. in the bolt/screw example)?", options: ["They determine the color of the metal", "Slip occurs on the most densely packed planes and directions, affecting mechanical deformation", "They only matter for ceramics, not metals", "They determine the melting point exclusively"], correct: 1, explain: "Slip preferentially occurs on the most densely packed crystallographic planes, along the directions of greatest atomic packing, directly affecting a material's mechanical behavior." }
 ];
 
 let current = 0;
@@ -460,6 +543,8 @@ let studentName = '';
 let studentReg = '';
 
 const SCRIPT_ENDPOINT = 'https://script.google.com/macros/s/AKfycbzB4xy5eEQpZvCy9BjqxmP-QhuqUfHe456LqQ14HUP-MJRFodgmaGaA-yvR5Os0EeLB/exec';
+
+document.getElementById('progress-text').textContent = `0 / ${questions.length}`;
 
 document.getElementById('start-btn').addEventListener('click', () => {
   const nameVal = document.getElementById('student-name').value.trim();
@@ -476,7 +561,7 @@ document.getElementById('start-btn').addEventListener('click', () => {
 
   document.getElementById('start-screen').classList.add('hidden');
   document.getElementById('quiz-area').classList.remove('hidden');
-  document.querySelector('.cell-wrap').classList.remove('hidden');
+  renderQuestion();
 });
 
 function renderQuestion(){
@@ -484,8 +569,9 @@ function renderQuestion(){
   const item = questions[current];
   area.innerHTML = `
     <div class="card">
-      <div class="qnum">QUESTION ${current+1} / ${questions.length}</div>
+      <div class="qnum"><span>QUESTION ${current+1} / ${questions.length}</span></div>
       <div class="qtext">${item.q}</div>
+      ${item.diagram ? `<div class="diagram">${item.diagram}</div>` : ''}
       <div class="options" id="opts"></div>
       <div class="explain" id="explain"><b>Why:</b> ${item.explain}</div>
       <div class="nav-row"><button class="btn" id="next-btn">${current === questions.length-1 ? 'SEE RESULTS →' : 'NEXT →'}</button></div>
@@ -511,13 +597,9 @@ function selectOption(i){
 
   opts.forEach((o, idx) => {
     o.classList.add('locked');
-    if (idx === item.correct){
-      o.classList.add('correct');
-    } else if (idx === i){
-      o.classList.add('wrong');
-    } else {
-      o.classList.add('dim');
-    }
+    if (idx === item.correct){ o.classList.add('correct'); }
+    else if (idx === i){ o.classList.add('wrong'); }
+    else { o.classList.add('dim'); }
   });
 
   if (i === item.correct) score++;
@@ -546,9 +628,7 @@ function updateProgress(){
 
   const atoms = document.querySelectorAll('.atom');
   const filled = Math.round((answeredCount / questions.length) * atoms.length);
-  atoms.forEach((a, idx) => {
-    a.setAttribute('fill', idx < filled ? '#c17f4e' : '#33393f');
-  });
+  atoms.forEach((a, idx) => { a.setAttribute('fill', idx < filled ? '#c17f4e' : '#33393f'); });
 }
 
 function showResults(){
@@ -559,14 +639,22 @@ function showResults(){
 
   let verdict;
   const pct = score / questions.length;
-  if (pct === 1) verdict = "Perfect score. Coordination numbers, APF, and density relations are fully locked in.";
-  else if (pct >= 0.8) verdict = "Strong grasp of crystal structures — revisit any missed items on planar/linear density.";
-  else if (pct >= 0.6) verdict = "Solid foundation. Review the close-packed directions and planes for FCC and BCC.";
-  else verdict = "Worth another pass through SC/BCC/FCC fundamentals — coordination number and APF derivations especially.";
+  if (pct === 1) verdict = "Perfect score. Planes, packing, density, and ceramic bonding are all fully locked in.";
+  else if (pct >= 0.8) verdict = "Strong grasp of the material — revisit any missed items before the exam.";
+  else if (pct >= 0.6) verdict = "Solid foundation. Review coordination numbers, APF, and Miller index procedure.";
+  else verdict = "Worth another pass through crystal structures fundamentals — planes, packing factor, and density especially.";
 
   document.getElementById('verdict-text').textContent = verdict;
 
   const noteEl = document.getElementById('sending-note');
+  const answerDetails = questions.map((item, idx) => ({
+    q: item.q,
+    options: item.options,
+    chosen: answered[idx],
+    correct: item.correct,
+    explain: item.explain
+  }));
+
   fetch(SCRIPT_ENDPOINT, {
     method: 'POST',
     mode: 'no-cors',
@@ -575,13 +663,18 @@ function showResults(){
       name: studentName,
       reg: studentReg,
       score: `${score}/${questions.length}`,
-      percentage: `${Math.round((score/questions.length)*100)}%`
+      percentage: `${Math.round((score/questions.length)*100)}%`,
+      answers: answerDetails
     })
   }).then(() => {
     noteEl.textContent = "✓ Result recorded successfully.";
   }).catch(() => {
     noteEl.textContent = "⚠ Could not record result — check your internet connection.";
   });
+}
+
+function preparePrint(){
+  window.print();
 }
 
 function restartQuiz(){
@@ -595,14 +688,9 @@ function restartQuiz(){
   document.getElementById('results').classList.remove('show');
   document.getElementById('quiz-area').classList.add('hidden');
   document.getElementById('quiz-area').style.display = 'block';
-  document.querySelector('.cell-wrap').classList.add('hidden');
   document.getElementById('start-screen').classList.remove('hidden');
   updateProgress();
-  renderQuestion();
 }
-
-renderQuestion();
-updateProgress();
 </script>
 </body>
 </html>
